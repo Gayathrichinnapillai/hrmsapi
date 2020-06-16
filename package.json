@@ -1,0 +1,31 @@
+{
+  "name": "hrmsapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gayathrichinnapillai/hrmsapi.git"
+  },
+  "author": "gayathri <gayathrichinnapillaiilt@gmail.com> (https://github.com/Gayathrichinnapillai/Nodejsprj.git)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gayathrichinnapillai/hrmsapi/issues"
+  },
+  "homepage": "https://github.com/Gayathrichinnapillai/hrmsapi#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jade": "^1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.13"
+  }
+}
