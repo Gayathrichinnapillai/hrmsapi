@@ -5,13 +5,14 @@ var express = require('express');
  const config = require('../config/config.json'); 
  
  router.use(function (req, res, next) {
- var token = req.headers['x-access-token'];
- console.log(token);
- if (token) {
- jwt.verify(token,config.secret,
+ var refreshToken =req.body.refreshToken;
+ console.log(refreshToken);
+ if (refreshToken) {
+ jwt.verify(refreshToken,config.refreshTokenSecret,
 //  {
 //  algorithm: global.config.algorithm
 //  }, 
+
 function (err, decoded) {
 
  if (err) {

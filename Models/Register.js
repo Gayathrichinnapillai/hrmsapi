@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 
 module.exports = function(sequelize, DataTypes) {
-    const Customer = sequelize.define('hr_registration', {
+    const Customer = sequelize.define('HR_Registrations', {
         Registrationkey: {
             type: DataTypes.INTEGER,
             autoIncrement: true,

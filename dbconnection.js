@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('Infologiadb','sa','Infologia_1', {
-  host:'localhost',
+const sequelize = new Sequelize('Infologiadb','valuesdp','Infologia_1', {
+  host:'15.206.186.249',
   dialect:'mysql',
-  operatorsAliases: false,
+  operatorsAliases:1,
 });
 
 const db = {};

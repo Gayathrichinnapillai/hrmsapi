@@ -6,8 +6,21 @@ const config = require('../config/config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs'); 
 const verifytoken=require('../controller/Verifytoken');
-
+const CF=require('../Controller/Commonfunction');
+var tokencheck=require('../Config/tokenChecker');
 router.post('/',function(req,res,next){ 	
+  Customer.findOne({
+    where: {
+      Emailid: req.body.Emailid
+    }
+  }).then(user => {
+    if (user) {
+      res.status(400).send({
+        response_code:"400",response_message:"User already exist."
+      });
+      return;
+    }
+  });
 	const userreg=new Customer(req.body)
     {  
         userreg.save()
@@ -44,23 +57,41 @@ router.post('/login', async (req, res) => {
           message: "Invalid Password!"
         });
       }
-const token = jwt.sign({ sub:Customer.Registrationkey}, config.secretKey,{expiresIn: '5m'});
-	res.status(200).send({
+    const refreshToken = jwt.sign(user, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
+    const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
+	  res.status(200).send({
+      respnse_code:200,
+      response_message:"Login success",
 		id: Customer.Registrationkey,
-		firstname: Customer.Firstname,
-		email: Customer.Emailid,
-		accessToken: token
+    accessToken: token,
+    refreshToken:refreshToken
 	  });
 });
 });	
   
-router.get('/',verifytoken, function (req, res) {
-	Customer.findAll().then(Customers => {
-		// Send all customers to Client
-		res.send(Customers);
-	  });
-   });
-
+// router.get('/test', function (req, res) {
+// CF.getAll()
+// .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
+//         .catch(err => next(err));
+	
+//    });
+   router.post('/token',tokencheck, (req,res) => {
+    console.log("testing");
+            const user = {
+                "email": req.body.email,
+                "name": req.body.name
+            }
+            const refreshToken = jwt.sign(user, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
+            const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
+            const response = {
+                "status": "Logged in",
+                "token": token,
+                "refreshToken": refreshToken,
+            }
+            // update the token in the list
+            res.status(200).json(response);       
+        
+    })
 // // FETCH all Customers
 // exports.findAll = (req, res) => {
 // 	Customer.findAll().then(customers => {

@@ -5,7 +5,8 @@ var cors=require('cors');
 var logger = require('morgan'); 
 var register=require('./Controller/registration');  
 var app = express();  
-
+var router=express.Router();
+//var winston = require('winston'); 
   
 // view engine setup  
 app.use(express.static(path.join(__dirname, 'public')));  
@@ -16,7 +17,7 @@ app.use(logger('dev'));
 app.use(express.json());  
 app.use(express.urlencoded({ extended: false }));  
  
-app.use('/Register',register);  
+app.use('/Register',register);   
 // catch 404 and forward to error handler  
 app.use(function(req, res, next) {  
   next(createError(404));  
@@ -25,7 +26,6 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {
   return res.send('Received a GET HTTP method');
 });
-  
 // error handler  
 app.use(function(err, req, res, next) {  
   // set locals, only providing error in development  
